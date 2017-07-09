@@ -5,6 +5,7 @@
 
 void Application::run()
 {
+	//init and create window
 	SDL_Init(SDL_INIT_EVERYTHING);
 
 	SDL_Window* sdlWindow;
@@ -17,10 +18,24 @@ void Application::run()
 	SDL_RenderCopy(render, texture, nullptr, nullptr);
 	SDL_RenderPresent(render);
 
+	//listen event
 	SDL_Event sdlEvent = SDL_Event();
 
 	while (sdlEvent.type != SDL_QUIT)
-		while (SDL_PollEvent(&sdlEvent));
+		while (SDL_PollEvent(&sdlEvent))
+		{
+			switch (sdlEvent.type)
+			{
+			case SDL_KEYDOWN:
+				keyEvent(sdlEvent.key.keysym.sym, keyDown);
+				break;
+			case SDL_KEYUP:
+				keyEvent(sdlEvent.key.keysym.sym, keyUp);
+				break;
+			default:
+				break;
+			}
+		}
 
 	SDL_Quit();
 }
