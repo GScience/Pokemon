@@ -21,15 +21,21 @@
     <ClInclude Include="Event.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="SceneBase.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Pokemon.rc" />
+    <Image Include="Resources\ICON.ico">
+      <Filter>Resources</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Resources\ICON.ico" />
+    <ResourceCompile Include="Pokemon.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
