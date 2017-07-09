@@ -13,7 +13,7 @@ void SceneBase::drawSquare(Square square)
 	sRect.x = square.sx;
 	sRect.x = square.sy;
 
-	SDL_RenderCopy(application.getRenderer(), square.texture, &sRect, &dRect);
+	//SDL_RenderCopy(application.getRenderer(), square.texture, &sRect, &dRect);
 }
 
 void SceneBase::addSquare(int sx, int sy, int dx, int dy, const char* textureName)

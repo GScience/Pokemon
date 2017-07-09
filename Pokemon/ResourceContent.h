@@ -1,22 +1,21 @@
 #pragma once
 
+#include <SDL.h>
 #include <map>
 #include <string>
 
 class ResourceContent
 {
 private:
-	const char* m_path;
-	std::map<std::string, void*> m_resourceMap;
+	SDL_Renderer*					m_sdlRenderer;
+	std::map<std::string, void*>	m_resourceMap;
 
 	//load all resources
 	void loadResources(const char * dir);
 
 public:
-	ResourceContent(const char* path) :m_path(path) {}
-
 	//init
-	void initialize();
+	void initialize(SDL_Renderer* sdlRenderer, const char* path);
 
 	//add
 	template <class Type> void add(Type* type, const char* key)

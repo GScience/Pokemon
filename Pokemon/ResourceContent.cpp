@@ -32,7 +32,7 @@ void ResourceContent::loadResources(const char * dir)
 			string extensionName = fileName.substr(fileName.find_last_of('.'));
 
 			if (extensionName == ".png" || extensionName == ".jpg" || extensionName == ".gif" || extensionName == ".bmp")
-				add<SDL_Texture>(IMG_LoadTexture(application.getRenderer(), fileName.c_str()), fileName.c_str());
+				add<SDL_Texture>(IMG_LoadTexture(m_sdlRenderer, fileName.c_str()), fileName.c_str());
 
 			cout << "Load file " << findData.name << endl;
 		}
@@ -41,7 +41,8 @@ void ResourceContent::loadResources(const char * dir)
 	_findclose(handle);    // ¹Ø±ÕËÑË÷¾ä±ú
 }
 
-void ResourceContent::initialize()
+void ResourceContent::initialize(SDL_Renderer* sdlRenderer, const char* path)
 {
-	loadResources(m_path);
+	m_sdlRenderer = sdlRenderer;
+	loadResources(path);
 }

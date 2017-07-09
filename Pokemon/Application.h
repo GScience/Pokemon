@@ -18,10 +18,10 @@ private:
 
 	//SDL
 	SDL_Window*		m_sdlWindow;
-	SDL_Renderer*	m_renderer;
+	SDL_Renderer*	m_sdlRenderer;
 
 	//res content
-	ResourceContent m_resContent = ResourceContent("Resources");
+	ResourceContent m_resContent = ResourceContent();
 
 	//scene list
 	std::map<std::string, SceneBase*> sceneMap;
@@ -42,17 +42,21 @@ public:
 	//get resource content
 	ResourceContent& getResourceContent() { return m_resContent; }
 
-	//get renderer
-	SDL_Renderer* getRenderer() { return m_renderer; }
-
 	//change scene
 	void switchScene(const char* sceneName)
 	{
 		m_nowScene = sceneMap.at(sceneName);
 	}
 
+	/*Event start*/
+
 	//keyboard event(key,action)
 	Event<int, keyAction> keyEvent;
+
+	//init event(call when application init)
+	Event<> initEvent;
+
+	/*Event end*/
 
 	//run the program
 	void run();
@@ -60,10 +64,11 @@ public:
 	//add scene
 	template <class Scene> void addScene(const char* sceneName)
 	{
-		sceneMap[sceneName] = reinterpret_cast<SceneBase*>(new Scene());
+		Scene* newScene = new Scene(m_sdlRenderer);
+		sceneMap[sceneName] = reinterpret_cast<SceneBase*>(newScene);
 
 		if (m_nowScene == nullptr && sceneMap.size() == 1)
-			m_nowScene = sceneMap[sceneName];
+			m_nowScene = reinterpret_cast<SceneBase*>(newScene);
 	}
 };
 
