@@ -5,6 +5,12 @@
     <ClCompile Include="Application.cpp">
       <Filter>BaseEngine</Filter>
     </ClCompile>
+    <ClCompile Include="ResourceContent.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BaseEngine">
@@ -26,6 +32,9 @@
     </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceContent.h">
+      <Filter>BaseEngine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
