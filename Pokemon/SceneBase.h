@@ -8,13 +8,12 @@ class SceneBase
 {
 private:
 	std::list<Spirit> m_spiritList;
-
 protected:
 	//sdl renderer
 	SDL_Renderer* m_sdlRenderer;
 
 	//add square
-	Spirit* addSpirit();
+	Spirit* addSpirit(unsigned short zOrder);
 
 public:
 	virtual void initialize() = 0;

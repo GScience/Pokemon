@@ -25,8 +25,7 @@ private:
 public:
 	Spirit(SceneBase* scene, SDL_Renderer* sdlRenderer) :m_scene(scene) , m_sdlRenderer(sdlRenderer) {}
 
-	void setZOrder(unsigned short zOrder)	{ m_zOrder = zOrder; }
 	bool isCoveredBy(const Spirit& sc) const { return m_zOrder < sc.m_zOrder; }
 
-	SpiritComponent* addSpiritComponent();
+	SpiritComponent* addSpiritComponent(unsigned short zOrder);
 };

@@ -4,19 +4,23 @@
 #include <algorithm>
 #include <SDL.h>
 
-Spirit* SceneBase::addSpirit()
+Spirit* SceneBase::addSpirit(unsigned short zOrder)
 {
-	m_spiritList.emplace_back(Spirit(this, m_sdlRenderer));
+	Spirit newSpirit = Spirit(this, m_sdlRenderer);
+	newSpirit.m_zOrder = zOrder;
 
-	return &m_spiritList.back();
+	auto i = m_spiritList.begin();
+
+	for (; i != m_spiritList.end(); i++)
+		if (i->isCoveredBy(newSpirit))
+			break;
+
+	return &*m_spiritList.emplace(i, newSpirit);
 }
 
 void SceneBase::update()
 {
 	SDL_RenderClear(m_sdlRenderer);
-
-	//sort spirit first
-	m_spiritList.sort([](const Spirit spirit1, const Spirit spirit2) { return spirit1.isCoveredBy(spirit2); });
 
 	for (auto spirit : m_spiritList)
 		spirit.draw();

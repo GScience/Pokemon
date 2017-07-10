@@ -16,13 +16,15 @@ public:
 	{
 		for (unsigned int i = 0; i < 256; i++)
 		{
-			Spirit* spirit = addSpirit();
-			spirit->setZOrder(256 - i);
-			SpiritComponent* sp = spirit->addSpiritComponent();
-			sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
-			sp->setTexPos(0, 0, 32, 32);
-			sp->setLocation(i, i);
-			sp->setSize(256, 256);
+			for (unsigned int j = 0; j < 256; j++)
+			{
+				Spirit* spirit = addSpirit(i);
+				SpiritComponent* sp = spirit->addSpiritComponent(0);
+				sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+				sp->setTexPos(0, 0, 32, 32);
+				sp->setLocation(i, i);
+				sp->setSize(256, 256);
+			}
 		}
 	}
 };

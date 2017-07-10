@@ -24,7 +24,7 @@ void Application::run()
 	while (m_nowScene == nullptr);
 
 	m_nowScene->initialize();
-
+	
 	//listen event
 	SDL_Event sdlEvent = SDL_Event();
 

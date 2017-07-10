@@ -14,10 +14,11 @@ private:
 	SDL_Rect m_dRect = SDL_Rect();
 	SDL_Rect m_sRect = SDL_Rect();
 
-	unsigned short m_zOrder = 0;
+	int m_zOrder = 0;
 
 	//draw
 	void draw();
+
 public:
 	SpiritComponent(Spirit* spirit, SDL_Renderer* sdlRenderer) :m_sdlRenderer(sdlRenderer), m_spirit(spirit) {}
 
@@ -25,7 +26,6 @@ public:
 	void setLocation(int x, int y)					{ m_dRect.x = x; m_dRect.y = y; }
 	void setSize(int width, int height)				{ m_dRect.h = height; m_dRect.w = width; }
 	void setTexPos(int x1, int y1, int x2, int y2)	{ m_sRect.x = x1; m_sRect.y = y1; m_sRect.h = y2 - y1; m_sRect.w = x2 - x1; }
-	void setZOrder(unsigned short zOrder)			{ m_zOrder = zOrder; }
 	
 	bool isCoveredBy(const SpiritComponent& sc) const { return m_zOrder < sc.m_zOrder; }
 };

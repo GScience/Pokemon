@@ -4,15 +4,19 @@
 
 void Spirit::draw()
 {
-	//sort spirit component first
-	m_spiritComponentList.sort([](const SpiritComponent sc1, const SpiritComponent sc2) { return sc1.isCoveredBy(sc2); });
-
 	for (auto sp : m_spiritComponentList)
 		sp.draw();
 }
-SpiritComponent* Spirit::addSpiritComponent()
+SpiritComponent* Spirit::addSpiritComponent(unsigned short zOrder)
 {
-	m_spiritComponentList.emplace_back(SpiritComponent(this, m_sdlRenderer));
+	SpiritComponent newSC = SpiritComponent(this, m_sdlRenderer);
+	newSC.m_zOrder = zOrder;
 
-	return &m_spiritComponentList.back();
+	auto i = m_spiritComponentList.begin();
+
+	for (; i != m_spiritComponentList.end(); i++)
+		if (i->isCoveredBy(newSC))
+			break;
+
+	return &*m_spiritComponentList.emplace(i, newSC);
 }
