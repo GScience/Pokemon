@@ -1,26 +1,25 @@
 
 #include "SceneBase.h"
 #include "Application.h"
+#include <algorithm>
 #include <SDL.h>
 
-void SceneBase::drawSquare(Square square)
+Spirit* SceneBase::addSpirit()
 {
-	SDL_Rect dRect = SDL_Rect();
-	dRect.x = square.dx;
-	dRect.x = square.dy;
+	m_spiritList.emplace_back(Spirit(this, m_sdlRenderer));
 
-	SDL_Rect sRect = SDL_Rect();
-	sRect.x = square.sx;
-	sRect.x = square.sy;
-
-	//SDL_RenderCopy(application.getRenderer(), square.texture, &sRect, &dRect);
+	return &m_spiritList.back();
 }
 
-void SceneBase::addSquare(int sx, int sy, int dx, int dy, const char* textureName)
+void SceneBase::update()
 {
-	Square newSquare = Square(sx, sy, dx, dy, application.getResourceContent().get<SDL_Texture>(textureName));
+	SDL_RenderClear(m_sdlRenderer);
 
-	m_squareList.emplace_back(newSquare);
+	//sort spirit first
+	m_spiritList.sort([](const Spirit spirit1, const Spirit spirit2) { return spirit1.isCoveredBy(spirit2); });
 
-	drawSquare(newSquare);
+	for (auto spirit : m_spiritList)
+		spirit.draw();
+
+	SDL_RenderPresent(m_sdlRenderer);
 }

@@ -29,6 +29,9 @@ void Application::run()
 	SDL_Event sdlEvent = SDL_Event();
 
 	while (sdlEvent.type != SDL_QUIT)
+	{
+		m_nowScene->update();
+
 		while (SDL_PollEvent(&sdlEvent))
 		{
 			switch (sdlEvent.type)
@@ -43,6 +46,7 @@ void Application::run()
 				break;
 			}
 		}
+	}
 
 	SDL_Quit();
 }

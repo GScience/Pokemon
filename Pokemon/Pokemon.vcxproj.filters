@@ -11,6 +11,12 @@
     <ClCompile Include="SceneBase.cpp">
       <Filter>BaseEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Spirit.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="SpiritComponent.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BaseEngine">
@@ -34,6 +40,12 @@
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="ResourceContent.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Spirit.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="SpiritComponent.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
   </ItemGroup>

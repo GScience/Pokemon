@@ -9,15 +9,21 @@ int id = 0;
 
 class testScene : SceneBase
 {
-	SceneCtor(testScene)
+	SceneCtor;
 
 public:
 	void initialize() override
 	{
-		addSquare(0, 0, 0, 0, "Resources\\PokemonIcon\\1.png");
-
-		SDL_RenderCopy(m_sdlRenderer, application.getResourceContent().get<SDL_Texture>((((string)"Resources\\PokemonIcon\\1.png").c_str())), nullptr, nullptr);
-		SDL_RenderPresent(m_sdlRenderer);
+		for (unsigned int i = 0; i < 256; i++)
+		{
+			Spirit* spirit = addSpirit();
+			spirit->setZOrder(256 - i);
+			SpiritComponent* sp = spirit->addSpiritComponent();
+			sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+			sp->setTexPos(0, 0, 32, 32);
+			sp->setLocation(i, i);
+			sp->setSize(256, 256);
+		}
 	}
 };
 

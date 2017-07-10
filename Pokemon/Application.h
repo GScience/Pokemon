@@ -70,6 +70,9 @@ public:
 		if (m_nowScene == nullptr && sceneMap.size() == 1)
 			m_nowScene = reinterpret_cast<SceneBase*>(newScene);
 	}
+
+	SDL_Texture* getTexture(const char* name);
 };
 
 #define application Application::getInstance()
+#define getTexture(resName) getResourceContent().get<SDL_Texture>((((string)resName).c_str()))
