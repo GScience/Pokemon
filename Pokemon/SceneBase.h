@@ -8,6 +8,7 @@ class SceneBase
 {
 private:
 	std::list<Spirit> m_spiritList;
+
 protected:
 	//sdl renderer
 	SDL_Renderer* m_sdlRenderer;
@@ -18,7 +19,7 @@ protected:
 public:
 	virtual void initialize() = 0;
 	
-	void update();
+	virtual void update(double passedTime);
 
 	SceneBase(SDL_Renderer* sdlRenderer) :m_sdlRenderer(sdlRenderer) {}
 };

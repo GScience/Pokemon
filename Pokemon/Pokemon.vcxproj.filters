@@ -48,6 +48,9 @@
     <ClInclude Include="SpiritComponent.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
+    <ClInclude Include="ActionBase.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\ICON.ico">

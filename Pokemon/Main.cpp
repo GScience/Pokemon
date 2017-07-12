@@ -16,16 +16,46 @@ public:
 	{
 		for (unsigned int i = 0; i < 256; i++)
 		{
-			for (unsigned int j = 0; j < 256; j++)
-			{
-				Spirit* spirit = addSpirit(i);
-				SpiritComponent* sp = spirit->addSpiritComponent(0);
-				sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
-				sp->setTexPos(0, 0, 32, 32);
-				sp->setLocation(i, i);
-				sp->setSize(256, 256);
-			}
+			Spirit* spirit = addSpirit(i);
+			SpiritComponent* sp = spirit->addSpiritComponent(0);
+			sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+			sp->setTexPos(0, 0, 32, 32);
+			sp->setLocation(0, 0);
+			sp->setSize(512, 512);
+
+			spirit->setLocation(i,i);
+			spirit->setSize(256, 256);
 		}
+	}
+	int zOrder = 0;
+	double totalTime = 0;
+
+	void update(double time) override
+	{
+		SceneBase::update(time);
+		
+		totalTime += time;
+
+		if (totalTime < 1)
+			return;
+
+		totalTime = 0;
+
+		if (zOrder == 256)
+			zOrder = 0;
+
+		Spirit* testSpirit = addSpirit(zOrder);
+
+		SpiritComponent* sp = testSpirit->addSpiritComponent(0);
+		sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+		sp->setTexPos(0, 0, 32, 32);
+		sp->setLocation(0, 0);
+		sp->setSize(1024, 1024);
+
+		testSpirit->setLocation(-1024, -1024);
+		testSpirit->setSize(1024, 1024);
+
+		zOrder++;
 	}
 };
 

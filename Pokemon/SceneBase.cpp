@@ -12,18 +12,18 @@ Spirit* SceneBase::addSpirit(unsigned short zOrder)
 	auto i = m_spiritList.begin();
 
 	for (; i != m_spiritList.end(); i++)
-		if (i->isCoveredBy(newSpirit))
+		if (!i->isCoveredBy(newSpirit))
 			break;
 
 	return &*m_spiritList.emplace(i, newSpirit);
 }
 
-void SceneBase::update()
+void SceneBase::update(double passedTime)
 {
 	SDL_RenderClear(m_sdlRenderer);
 
-	for (auto spirit : m_spiritList)
-		spirit.draw();
+	for (auto& spirit : m_spiritList)
+		spirit.update(passedTime);
 
 	SDL_RenderPresent(m_sdlRenderer);
 }

@@ -28,9 +28,13 @@ void Application::run()
 	//listen event
 	SDL_Event sdlEvent = SDL_Event();
 
+	uint32_t lastCallTime = SDL_GetTicks();
+
 	while (sdlEvent.type != SDL_QUIT)
 	{
-		m_nowScene->update();
+		uint32_t nowTime = SDL_GetTicks();
+		m_nowScene->update((nowTime - lastCallTime) / 1000.0);
+		lastCallTime = nowTime;
 
 		while (SDL_PollEvent(&sdlEvent))
 		{
