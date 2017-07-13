@@ -12,27 +12,43 @@ class testScene : SceneBase
 {
 	SceneCtor;
 
+	Spirit* testSpirit1 = addSpirit(0);
+	SpiritComponent* testSC1;
+
 public:
+	void test1()
+	{
+		if (testSpirit1->getX() == 0)
+			addActionTo<Action::Move<362, 256, 256>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
+		else
+			addActionTo<Action::Move<362, 0, 0>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
+	}
+	void test2()
+	{
+		if (testSC1->getX() == 32)
+			addActionTo<Action::Move<362, -32, 32>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
+		else
+			addActionTo<Action::Move<362, 32, -32>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
+	}
 	void initialize() override
 	{
-		for (unsigned int i = 0; i < 1; i++)
-		{
-			Spirit* spirit = addSpirit(i);
-			SpiritComponent* sp = spirit->addSpiritComponent(0);
-			sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
-			sp->setTexPos(0, 0, 32, 32);
-			sp->setLocation(0, 0);
-			sp->setSize(512, 512);
+		SpiritComponent* sp = testSpirit1->addSpiritComponent(0);
+		sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+		sp->setTexPos(0, 0, 32, 32);
+		sp->setLocation(0, 0);
+		sp->setSize(512, 512);
 
-			spirit->setLocation(i * 32, i * 32);
-			spirit->setSize(256, 256);
-			addActionTo<Action::Move<128, 256, 256>>(spirit)->onFinish += std::function<void()>(
-				[this, spirit]
-				{
-					this->addActionTo<Action::Move<128, 0, 0>>(spirit);
-				}
-			);
-		}
+		testSpirit1->setLocation(0, 0);
+		testSpirit1->setSize(256, 256);
+		test1();
+
+		testSC1 = testSpirit1->addSpiritComponent(1);
+		testSC1->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+		testSC1->setTexPos(0, 0, 32, 32);
+		testSC1->setLocation(32, 32);
+		testSC1->setSize(512, 512);
+
+		test2();
 	}
 	int zOrder = 0;
 	double totalTime = 0;
