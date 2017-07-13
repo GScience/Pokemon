@@ -1,19 +1,26 @@
 #pragma once
 
+#include "RenderableObject.h"
+#include "Event.h"
 #include <SDL.h>
-#include "Spirit.h"
 
 class ActionBase
 {
-private:
-	Spirit* m_spirit;
-
 protected:
-	ActionBase(Spirit* spirit) :m_spirit(spirit) {}
+	RenderableObject* m_obj;
 
-	const SDL_Rect getRect() { return m_spirit->m_rect; }
 public:
-	virtual void update(double passedTime) = 0;
+	ActionBase(RenderableObject* obj) :m_obj(obj) {}
+
+	//update
+	virtual void update(double passedTime)	= 0;
+	//check whether the action is finished
+	virtual bool hasFinished()				= 0;
+	//call when init
+	virtual void initialize()				= 0;
+
+	//call when finish
+	Event<> onFinish;
 };
 
 #define ActionCtor using ActionBase::ActionBase

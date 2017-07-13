@@ -25,6 +25,9 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{7bdaff7c-ad3c-4ec6-96b1-41a57a3d460d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="BaseEngine\Action">
+      <UniqueIdentifier>{8c819674-2e32-4dc5-8767-9fd2075d69a5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -50,6 +53,12 @@
     </ClInclude>
     <ClInclude Include="ActionBase.h">
       <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderableObject.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Move.h">
+      <Filter>BaseEngine\Action</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

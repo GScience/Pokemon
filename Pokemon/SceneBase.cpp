@@ -22,6 +22,21 @@ void SceneBase::update(double passedTime)
 {
 	SDL_RenderClear(m_sdlRenderer);
 
+	for (auto action = m_actionPool.begin(); action != m_actionPool.end(); )
+	{
+		if ((*action)->hasFinished())
+		{
+			(*action)->onFinish();
+			delete *action;
+			action = m_actionPool.erase(action);
+		}
+		else
+		{
+			(*action)->update(passedTime);
+			action++;
+		}
+	}
+
 	for (auto& spirit : m_spiritList)
 		spirit.update(passedTime);
 
