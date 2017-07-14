@@ -1,5 +1,6 @@
 #pragma once
 
+#include "BaseEngine.h"
 #include <SDL.h>
 
 class RenderableObject
@@ -21,7 +22,7 @@ protected:
 	//object creator
 	void*		m_creator;
 
-	RenderableObject(void* creator, SDL_Renderer* sdlRenderer) : m_rect{ 0,0,512,512 }, m_sdlRenderer(sdlRenderer) {}
+	RenderableObject(void* creator, SDL_Renderer* sdlRenderer) : m_rect{ 0,0,Setting::windowWidth,Setting::windowHeight }, m_sdlRenderer(sdlRenderer) {}
 
 public:
 	bool isCoveredBy(const RenderableObject& sc) const { return m_zOrder < sc.m_zOrder; }

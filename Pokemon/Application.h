@@ -75,4 +75,4 @@ public:
 };
 
 #define application Application::getInstance()
-#define getTexture(resName) getResourceContent().get<SDL_Texture>((((string)resName).c_str()))
+#define getTexture(resName) getResourceContent().get<SDL_Texture>(resName)

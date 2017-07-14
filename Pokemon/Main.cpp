@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "SceneBase.h"
 #include "Move.h"
+#include "TileMap.h"
 #include <string>
 
 using namespace std;
@@ -19,7 +20,7 @@ public:
 	void test1()
 	{
 		if (testSpirit1->getX() == 0)
-			addActionTo<Action::Move<362, 256, 256>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
+			addActionTo<Action::Move<362, MAX_WIDTH - 256, MAX_HEIGHT - 256>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
 		else
 			addActionTo<Action::Move<362, 0, 0>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
 	}
@@ -36,7 +37,7 @@ public:
 		sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
 		sp->setTexPos(0, 0, 32, 32);
 		sp->setLocation(0, 0);
-		sp->setSize(512, 512);
+		sp->setSize(MAX_WIDTH, MAX_HEIGHT);
 
 		testSpirit1->setLocation(0, 0);
 		testSpirit1->setSize(256, 256);
@@ -46,9 +47,10 @@ public:
 		testSC1->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
 		testSC1->setTexPos(0, 0, 32, 32);
 		testSC1->setLocation(32, 32);
-		testSC1->setSize(512, 512);
+		testSC1->setSize(MAX_WIDTH, MAX_HEIGHT);
 
 		test2();
+		TileMap testMap(this, "");
 	}
 	int zOrder = 0;
 	double totalTime = 0;

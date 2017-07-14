@@ -1,12 +1,15 @@
 
 #include "Application.h"
+#include "BaseEngine.h"
 
 void Application::run()
 {
 	//init and create window
 	SDL_Init(SDL_INIT_EVERYTHING);
 
-	SDL_CreateWindowAndRenderer(512, 512, SDL_WINDOW_OPENGL |SDL_WINDOW_HIDDEN, &m_sdlWindow, &m_sdlRenderer);
+	m_sdlWindow		= SDL_CreateWindow("Pokemon", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Setting::windowWidth, Setting::windowHeight, SDL_WINDOW_OPENGL | SDL_WINDOW_HIDDEN);
+	m_sdlRenderer	= SDL_CreateRenderer(m_sdlWindow, -1, SDL_RENDERER_PRESENTVSYNC);
+	
 	SDL_Texture* texture = IMG_LoadTexture(m_sdlRenderer, "Resources\\Logo.png");
 
 	SDL_ShowWindow(m_sdlWindow);

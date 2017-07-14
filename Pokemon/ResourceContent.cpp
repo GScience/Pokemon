@@ -4,6 +4,7 @@
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
+#include <algorithm>
 #include <io.h>
 
 using namespace std;
@@ -30,9 +31,12 @@ void ResourceContent::loadResources(const char * dir)
 		{
 			string fileName = (string)dir + "\\" + findData.name;
 			string extensionName = fileName.substr(fileName.find_last_of('.'));
+			std::transform(extensionName.begin(), extensionName.end(), extensionName.begin(), tolower);
 
-			if (extensionName == ".png" || extensionName == ".jpg" || extensionName == ".gif" || extensionName == ".bmp")
+			if (extensionName == ".png" || extensionName == ".jpg" || extensionName == ".gif" || extensionName == ".bmp" || extensionName == ".ico")
 				add<SDL_Texture>(IMG_LoadTexture(m_sdlRenderer, fileName.c_str()), fileName.c_str());
+			else
+				add<string>(new string(fileName), fileName.c_str());
 
 			cout << "Load file " << findData.name << endl;
 		}
