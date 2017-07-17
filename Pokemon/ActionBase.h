@@ -16,11 +16,7 @@ public:
 	virtual void update(double passedTime)	= 0;
 	//check whether the action is finished
 	virtual bool hasFinished()				= 0;
-	//call when init
-	virtual void initialize()				= 0;
 
 	//call when finish
 	Event<> onFinish;
 };
-
-#define ActionCtor using ActionBase::ActionBase

@@ -16,6 +16,7 @@ private:
 	std::list<SpiritComponent> m_spiritComponentList;
 
 	void update(double passedTime) override;
+	void draw()	override;
 
 public:
 	Spirit(SceneBase* scene, SDL_Renderer* sdlRenderer) :RenderableObject(scene, sdlRenderer) {}

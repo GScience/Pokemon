@@ -7,8 +7,6 @@ namespace Action
 {
 	template <int speed, int toX, int toY> class Move :public ActionBase
 	{
-		ActionCtor;
-
 		//location in float
 		float m_x;
 		float m_y;
@@ -17,7 +15,7 @@ namespace Action
 		int m_changedY;
 
 	public:
-		void initialize() override
+		Move(RenderableObject* obj) :ActionBase(obj)
 		{
 			m_x = (float)m_obj->getX();
 			m_y = (float)m_obj->getY();
@@ -25,6 +23,7 @@ namespace Action
 			m_changedX = toX - m_obj->getX();
 			m_changedY = toY - m_obj->getY();
 		}
+
 		void update(double passedTime) override
 		{
 			m_x += (float)((speed * m_changedX / sqrt(m_changedX * m_changedX + m_changedY * m_changedY)) * passedTime);
@@ -34,7 +33,7 @@ namespace Action
 		}
 		bool hasFinished() override
 		{
-			bool hasFinish = (toX - (int)m_x) * m_changedX <= 0 || (toY - (int)m_y) * m_changedY <= 0;
+			bool hasFinish = (toX - (int)m_x) * m_changedX <= 0 && (toY - (int)m_y) * m_changedY <= 0;
 
 			if (hasFinish)
 				m_obj->setLocation((int)toX, (int)toY);

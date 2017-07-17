@@ -7,6 +7,7 @@ void Spirit::update(double passedTime)
 	for (auto& sp : m_spiritComponentList)
 		sp.update(passedTime);
 }
+
 SpiritComponent* Spirit::addSpiritComponent(unsigned short zOrder)
 {
 	SpiritComponent newSC = SpiritComponent(this, m_rect, m_sdlRenderer);
@@ -19,4 +20,11 @@ SpiritComponent* Spirit::addSpiritComponent(unsigned short zOrder)
 			break;
 
 	return &*m_spiritComponentList.emplace(i, newSC);
+}
+
+void Spirit::draw()
+{
+	for (auto& sp : m_spiritComponentList)
+		if (sp.isVisiable())
+			sp.draw();
 }

@@ -2,14 +2,16 @@
 
 #include "Spirit.h"
 #include "ActionBase.h"
+#include <memory>
 #include <list>
 #include <SDL_image.h>
 
 class SceneBase
 {
+	friend class Application;
 private:
-	std::list<Spirit>		m_spiritList;
-	std::list<ActionBase*>	m_actionPool;
+	std::list<Spirit>	m_spiritList;
+	std::list<std::shared_ptr<ActionBase>>	m_actionPool;
 
 protected:
 	//sdl renderer
@@ -20,15 +22,16 @@ public:
 	Spirit* addSpirit(unsigned short zOrder);
 
 	//add action
-	template <class Action> Action* addActionTo(RenderableObject* obj)
+	template <class Action> std::shared_ptr<ActionBase> addActionTo(RenderableObject* obj)
 	{
-		Action* action = new Action(obj);
-		action->initialize();
+		auto action = std::make_shared<Action>(obj);
 		m_actionPool.emplace_back(action);
 		return action;
 	}
 
+	//called when init
 	virtual void initialize() = 0;
+	//called when update
 	virtual void update(double passedTime);
 
 	SceneBase(SDL_Renderer* sdlRenderer) :m_sdlRenderer(sdlRenderer) {}

@@ -3,6 +3,7 @@
 #include "ResourceContent.h"
 #include "Event.h"
 #include "SceneBase.h"
+#include <memory>
 #include <SDL.h>
 #include <SDL_image.h>
 #include <map>
@@ -24,13 +25,15 @@ private:
 	ResourceContent m_resContent = ResourceContent();
 
 	//scene list
-	std::map<std::string, SceneBase*> sceneMap;
+	std::map<std::string, std::shared_ptr<SceneBase>> sceneMap;
 
 	//now scene
-	SceneBase* m_nowScene = nullptr;
+	std::shared_ptr<SceneBase> m_nowScene = nullptr;
 
 	Application() {}
 
+	//run the program
+	void run();
 public:
 	//get instance
 	static Application& getInstance()
@@ -58,17 +61,17 @@ public:
 
 	/*Event end*/
 
-	//run the program
-	void run();
+	//start the program
+	void start();
 
 	//add scene
 	template <class Scene> void addScene(const char* sceneName)
 	{
-		Scene* newScene = new Scene(m_sdlRenderer);
-		sceneMap[sceneName] = reinterpret_cast<SceneBase*>(newScene);
+		auto newScene = std::make_shared<Scene>(m_sdlRenderer);
+		sceneMap[sceneName] = newScene;
 
 		if (m_nowScene == nullptr && sceneMap.size() == 1)
-			m_nowScene = reinterpret_cast<SceneBase*>(newScene);
+			m_nowScene = newScene;
 	}
 
 	SDL_Texture* getTexture(const char* name);

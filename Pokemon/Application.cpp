@@ -33,6 +33,7 @@ void Application::run()
 
 	uint32_t lastCallTime = SDL_GetTicks();
 
+	//main loop
 	while (sdlEvent.type != SDL_QUIT)
 	{
 		uint32_t nowTime = SDL_GetTicks();
@@ -54,6 +55,16 @@ void Application::run()
 			}
 		}
 	}
+}
 
-	SDL_Quit();
+void Application::start()
+{
+	try
+	{
+		run();
+	}
+	catch (std::exception)
+	{
+		SDL_Quit();
+	}
 }

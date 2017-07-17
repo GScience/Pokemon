@@ -35,8 +35,6 @@ void ResourceContent::loadResources(const char * dir)
 
 			if (extensionName == ".png" || extensionName == ".jpg" || extensionName == ".gif" || extensionName == ".bmp" || extensionName == ".ico")
 				add<SDL_Texture>(IMG_LoadTexture(m_sdlRenderer, fileName.c_str()), fileName.c_str());
-			else
-				add<string>(new string(fileName), fileName.c_str());
 
 			cout << "Load file " << findData.name << endl;
 		}

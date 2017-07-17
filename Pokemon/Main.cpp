@@ -9,7 +9,7 @@ using namespace std;
 
 int id = 0;
 
-class testScene : SceneBase
+class testScene : public SceneBase
 {
 	SceneCtor;
 
@@ -26,10 +26,12 @@ public:
 	}
 	void test2()
 	{
-		if (testSC1->getX() == 32)
-			addActionTo<Action::Move<362, -32, 32>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
+		if (testSC1->getY() == -50)
+			addActionTo<Action::Move<50, 0, 50>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
 		else
-			addActionTo<Action::Move<362, 32, -32>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
+			addActionTo<Action::Move<50, 0, -50>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
+
+		testSC1->setVisiable(!testSC1->isVisiable());
 	}
 	void initialize() override
 	{
@@ -90,7 +92,7 @@ int main(int argc, char* args[])
 	{
 		application.addScene<testScene>("testScene");
 	};
-	application.run();
+	application.start();
 
 	return 0;
 }

@@ -22,12 +22,15 @@ void SceneBase::update(double passedTime)
 {
 	SDL_RenderClear(m_sdlRenderer);
 
+	//save empty action
+	std::vector<std::shared_ptr<ActionBase>> removedActionPool;
+
+	//update action
 	for (auto action = m_actionPool.begin(); action != m_actionPool.end(); )
 	{
 		if ((*action)->hasFinished())
 		{
-			(*action)->onFinish();
-			delete *action;
+			removedActionPool.push_back(*action);
 			action = m_actionPool.erase(action);
 		}
 		else
@@ -37,8 +40,18 @@ void SceneBase::update(double passedTime)
 		}
 	}
 
+	//call finish function
+	for (auto action : removedActionPool)
+		action->onFinish();
+	
+	//update action and draw
 	for (auto& spirit : m_spiritList)
+	{
 		spirit.update(passedTime);
+		
+		if (spirit.isVisiable())
+			spirit.draw();
+	}
 
 	SDL_RenderPresent(m_sdlRenderer);
 }
