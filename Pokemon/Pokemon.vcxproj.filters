@@ -17,6 +17,9 @@
     <ClCompile Include="SpiritComponent.cpp">
       <Filter>BaseEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BaseEngine">
@@ -67,6 +70,9 @@
       <Filter>Pokemon</Filter>
     </ClInclude>
     <ClInclude Include="BaseEngine.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
   </ItemGroup>

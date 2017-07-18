@@ -36,7 +36,7 @@ public:
 	void initialize() override
 	{
 		SpiritComponent* sp = testSpirit1->addSpiritComponent(0);
-		sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+		sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.tex"));
 		sp->setTexPos(0, 0, 32, 32);
 		sp->setLocation(0, 0);
 		sp->setSize(MAX_WIDTH, MAX_HEIGHT);
@@ -46,7 +46,7 @@ public:
 		test1();
 
 		testSC1 = testSpirit1->addSpiritComponent(1);
-		testSC1->setTexture(application.getTexture("Resources\\PokemonIcon\\1.png"));
+		testSC1->setTexture(application.getTexture("Resources\\PokemonIcon\\1.tex"));
 		testSC1->setTexPos(0, 0, 32, 32);
 		testSC1->setLocation(32, 32);
 		testSC1->setSize(MAX_WIDTH, MAX_HEIGHT);

@@ -18,14 +18,27 @@ public:
 	void initialize(SDL_Renderer* sdlRenderer, const char* path);
 
 	//add
-	template <class Type> void add(Type* type, const char* key)
+	void add(void* type, const char* resourcePath)
 	{
-		m_resourceMap[key] = type;
+		m_resourceMap[resourcePath] = type;
 	}
 
 	//get resource
 	template <class Type> Type* get(const char* resourcePath)
 	{
 		return reinterpret_cast<Type*>(m_resourceMap.at(resourcePath));
+	}
+
+	//try to get resource
+	template <class Type> Type* tryGet(const char* resourcePath)
+	{
+		try
+		{
+			return reinterpret_cast<Type*>(m_resourceMap.at(resourcePath));
+		}
+		catch (std::exception)
+		{
+			return nullptr;
+		}
 	}
 };

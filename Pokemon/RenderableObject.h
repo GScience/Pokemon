@@ -1,6 +1,7 @@
 #pragma once
 
 #include "BaseEngine.h"
+#include "Texture.h"
 #include <SDL.h>
 
 class RenderableObject
@@ -15,7 +16,7 @@ protected:
 	//rect info
 	SDL_Rect		m_rect;
 	//texture
-	SDL_Texture*	m_texture		= nullptr;
+	Texture*		m_texture		= nullptr;
 	//texture rect
 	SDL_Rect		m_textureRect	= SDL_Rect();
 
@@ -34,7 +35,7 @@ public:
 	void setVisiable(bool canSee)					{ m_visiable = canSee; }
 	void setLocation(int x, int y)					{ m_rect.x = x; m_rect.y = y; }
 	void setSize(int width, int height)				{ m_rect.h = height; m_rect.w = width; }
-	void setTexture(SDL_Texture* texture)			{ m_texture = texture; }
+	void setTexture(Texture* texture)				{ m_texture = texture; }
 	void setTexPos(int x1, int y1, int x2, int y2)	{ m_textureRect.x = x1; m_textureRect.y = y1; m_textureRect.h = y2 - y1; m_textureRect.w = x2 - x1; }
 
 	const int getX()		{ return m_rect.x; }

@@ -5,7 +5,7 @@
 
 void SpiritComponent::draw()
 {
-	SDL_RenderCopy(m_sdlRenderer, m_texture, &m_textureRect, &m_scRect);
+	m_texture->renderCopyTo(m_sdlRenderer, m_textureRect, m_scRect);
 }
 
 void SpiritComponent::update(double passedTime)

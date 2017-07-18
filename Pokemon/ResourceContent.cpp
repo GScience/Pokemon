@@ -1,6 +1,7 @@
 
 #include "ResourceContent.h"
 #include "Application.h"
+#include "Texture.h"
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
@@ -33,8 +34,11 @@ void ResourceContent::loadResources(const char * dir)
 			string extensionName = fileName.substr(fileName.find_last_of('.'));
 			std::transform(extensionName.begin(), extensionName.end(), extensionName.begin(), tolower);
 
-			if (extensionName == ".png" || extensionName == ".jpg" || extensionName == ".gif" || extensionName == ".bmp" || extensionName == ".ico")
-				add<SDL_Texture>(IMG_LoadTexture(m_sdlRenderer, fileName.c_str()), fileName.c_str());
+			if (extensionName == ".tex")
+			{
+				Texture* texture = new Texture(m_sdlRenderer, fileName.c_str());
+				add(texture, fileName.c_str());
+			}
 
 			cout << "Load file " << findData.name << endl;
 		}

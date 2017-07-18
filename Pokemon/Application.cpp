@@ -59,6 +59,9 @@ void Application::run()
 
 void Application::start()
 {
+#ifdef _DEBUG
+	run();
+#else
 	try
 	{
 		run();
@@ -67,4 +70,5 @@ void Application::start()
 	{
 		SDL_Quit();
 	}
+#endif
 }

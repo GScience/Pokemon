@@ -3,6 +3,7 @@
 #include "ResourceContent.h"
 #include "Event.h"
 #include "SceneBase.h"
+#include "Texture.h"
 #include <memory>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -74,8 +75,10 @@ public:
 			m_nowScene = newScene;
 	}
 
-	SDL_Texture* getTexture(const char* name);
+	Texture* getTexture(const char* name)
+	{
+		return m_resContent.get<Texture>(name);
+	}
 };
 
 #define application Application::getInstance()
-#define getTexture(resName) getResourceContent().get<SDL_Texture>(resName)
