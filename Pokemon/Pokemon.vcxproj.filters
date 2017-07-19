@@ -20,6 +20,9 @@
     <ClCompile Include="Texture.cpp">
       <Filter>BaseEngine</Filter>
     </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BaseEngine">
@@ -30,9 +33,6 @@
     </Filter>
     <Filter Include="BaseEngine\Action">
       <UniqueIdentifier>{8c819674-2e32-4dc5-8767-9fd2075d69a5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Pokemon">
-      <UniqueIdentifier>{9b6b5f15-ae83-4983-95af-e8a2386bb43e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,13 +66,13 @@
     <ClInclude Include="Move.h">
       <Filter>BaseEngine\Action</Filter>
     </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>Pokemon</Filter>
-    </ClInclude>
     <ClInclude Include="BaseEngine.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
     <ClInclude Include="Texture.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
   </ItemGroup>

@@ -47,9 +47,7 @@ Texture::Texture(SDL_Renderer* sdlRenderer, const char* fileName)
 {
 	//read json
 	std::ifstream file(fileName);
-	
 	Json::Value textureInfo;
-
 	file >> textureInfo;
 
 	//close file

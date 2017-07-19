@@ -2,6 +2,7 @@
 #include "ResourceContent.h"
 #include "Application.h"
 #include "Texture.h"
+#include "TileMap.h"
 #include <SDL_image.h>
 #include <string>
 #include <iostream>
@@ -10,7 +11,31 @@
 
 using namespace std;
 
-void ResourceContent::loadResources(const char * dir)
+void* ResourceContent::loadResource(const char * fileName)
+{
+	string extensionName = ((string)fileName).substr(((string)fileName).find_last_of('.'));
+	std::transform(extensionName.begin(), extensionName.end(), extensionName.begin(), tolower);
+
+	void* pointer = nullptr;
+
+	if (extensionName == ".tex")
+	{
+		cout << "Load Texture : " << fileName << endl;
+
+		pointer = add<Texture>(fileName, m_sdlRenderer, fileName);
+	}
+	else if (extensionName == ".tm")
+	{
+		cout << "Load TileMap : " << fileName << endl;
+
+		pointer = add<TileMap>(fileName, fileName);
+	}
+	else
+		cout << "Pass file    : " << fileName << endl;
+
+	return pointer;
+}
+void ResourceContent::initResources(const char * dir)
 {
 	intptr_t handle;
 	_finddata_t findData;
@@ -26,20 +51,15 @@ void ResourceContent::loadResources(const char * dir)
 			if (strcmp(findData.name, ".") == 0 || strcmp(findData.name, "..") == 0)
 				continue;
 
-			loadResources(((string)dir + "\\" + findData.name).c_str());
+			initResources(((string)dir + "\\" + findData.name).c_str());
 		}
 		else
 		{
 			string fileName = (string)dir + "\\" + findData.name;
-			string extensionName = fileName.substr(fileName.find_last_of('.'));
-			std::transform(extensionName.begin(), extensionName.end(), extensionName.begin(), tolower);
 
-			if (extensionName == ".tex")
-			{
-				cout << "Load Texture : " << fileName << endl;
-
-				add<Texture>(fileName.c_str(), m_sdlRenderer, fileName.c_str());
-			}
+			//check whether has been load
+			if (m_resourceMap.find(fileName) == m_resourceMap.end())
+				loadResource(fileName.c_str());
 		}
 	} while (_findnext(handle, &findData) == 0);
 
@@ -49,5 +69,5 @@ void ResourceContent::loadResources(const char * dir)
 void ResourceContent::initialize(SDL_Renderer* sdlRenderer, const char* path)
 {
 	m_sdlRenderer = sdlRenderer;
-	loadResources(path);
+	initResources(path);
 }

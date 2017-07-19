@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 #include "Move.h"
 #include "TileMap.h"
+#include "Spirit.h"
 #include <string>
 
 using namespace std;
@@ -36,7 +37,7 @@ public:
 	void initialize() override
 	{
 		SpiritComponent* sp = testSpirit1->addSpiritComponent(0);
-		sp->setTexture(application.getTexture("Resources\\PokemonIcon\\1.tex"));
+		sp->setTexture(application.getResourceContent().getTexture("Resources\\PokemonIcon\\1.tex"));
 		sp->setTexPos(0, 0, 1, 1);
 		sp->setLocation(0, 0);
 		sp->setSize(MAX_WIDTH, MAX_HEIGHT);
@@ -46,13 +47,12 @@ public:
 		test1();
 
 		testSC1 = testSpirit1->addSpiritComponent(1);
-		testSC1->setTexture(application.getTexture("Resources\\PokemonIcon\\1.tex"));
+		testSC1->setTexture(application.getResourceContent().getTexture("Resources\\PokemonIcon\\1.tex"));
 		testSC1->setTexPos(0, 0, 1, 1);
 		testSC1->setLocation(32, 32);
 		testSC1->setSize(MAX_WIDTH, MAX_HEIGHT);
 
 		test2();
-		TileMap testMap(this, "");
 	}
 	int zOrder = 0;
 	double totalTime = 0;

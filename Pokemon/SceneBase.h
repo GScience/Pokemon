@@ -1,10 +1,12 @@
 #pragma once
 
-#include "Spirit.h"
 #include "ActionBase.h"
+#include "Spirit.h"
 #include <memory>
 #include <list>
 #include <SDL_image.h>
+
+class Spirit;
 
 class SceneBase
 {

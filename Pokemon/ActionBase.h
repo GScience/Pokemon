@@ -1,8 +1,9 @@
 #pragma once
 
-#include "RenderableObject.h"
 #include "Event.h"
 #include <SDL.h>
+
+class RenderableObject;
 
 class ActionBase
 {
@@ -15,7 +16,7 @@ public:
 	//update
 	virtual void update(double passedTime)	= 0;
 	//check whether the action is finished
-	virtual bool hasFinished()				= 0;
+	virtual bool hasFinished() const		= 0;
 
 	//call when finish
 	Event<> onFinish;

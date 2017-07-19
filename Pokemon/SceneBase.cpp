@@ -1,6 +1,6 @@
 
 #include "SceneBase.h"
-#include "Application.h"
+#include "Spirit.h"
 #include <algorithm>
 #include <SDL.h>
 

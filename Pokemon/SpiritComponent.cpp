@@ -1,6 +1,7 @@
 
 #include "SpiritComponent.h"
 #include "Spirit.h"
+#include "Texture.h"
 #include "BaseEngine.h"
 
 void SpiritComponent::draw()

@@ -29,16 +29,14 @@ namespace Action
 			m_x += (float)((speed * m_changedX / sqrt(m_changedX * m_changedX + m_changedY * m_changedY)) * passedTime);
 			m_y += (float)((speed * m_changedY / sqrt(m_changedX * m_changedX + m_changedY * m_changedY)) * passedTime);
 
-			m_obj->setLocation((int)m_x, (int)m_y);
-		}
-		bool hasFinished() override
-		{
-			bool hasFinish = (toX - (int)m_x) * m_changedX <= 0 && (toY - (int)m_y) * m_changedY <= 0;
-
-			if (hasFinish)
+			if (hasFinished())
 				m_obj->setLocation((int)toX, (int)toY);
-
-			return hasFinish;
+			else
+				m_obj->setLocation((int)m_x, (int)m_y);
+		}
+		bool hasFinished() const override
+		{
+			return (toX - (int)m_x) * m_changedX <= 0 && (toY - (int)m_y) * m_changedY <= 0;
 		}
 	};
 }

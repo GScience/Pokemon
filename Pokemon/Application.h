@@ -2,8 +2,6 @@
 
 #include "ResourceContent.h"
 #include "Event.h"
-#include "SceneBase.h"
-#include "Texture.h"
 #include <memory>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -11,6 +9,9 @@
 #include <functional>
 
 enum keyAction { keyDown, keyUp };
+
+class Texture;
+class SceneBase;
 
 class Application
 {
@@ -38,6 +39,7 @@ private:
 
 	//run the program
 	void run();
+
 public:
 	//get instance
 	static Application& getInstance()
@@ -50,16 +52,10 @@ public:
 	ResourceContent& getResourceContent() { return m_resContent; }
 
 	//change scene
-	void switchScene(const char* sceneName)
-	{
-		m_nowScene = sceneMap.at(sceneName);
-	}
+	void switchScene(const char* sceneName) { m_nowScene = sceneMap.at(sceneName); }
 
 	//get time
-	double getTime() const
-	{
-		return m_nowTime;
-	}
+	uint32_t getTime() const { return m_nowTime; }
 
 	/*Event start*/
 
@@ -82,11 +78,6 @@ public:
 
 		if (m_nowScene == nullptr && sceneMap.size() == 1)
 			m_nowScene = newScene;
-	}
-
-	Texture* getTexture(const char* name)
-	{
-		return m_resContent.get<Texture>(name);
 	}
 };
 
