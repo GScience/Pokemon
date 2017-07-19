@@ -36,11 +36,10 @@ void ResourceContent::loadResources(const char * dir)
 
 			if (extensionName == ".tex")
 			{
-				Texture* texture = new Texture(m_sdlRenderer, fileName.c_str());
-				add(texture, fileName.c_str());
-			}
+				cout << "Load Texture : " << fileName << endl;
 
-			cout << "Load file " << findData.name << endl;
+				add<Texture>(fileName.c_str(), m_sdlRenderer, fileName.c_str());
+			}
 		}
 	} while (_findnext(handle, &findData) == 0);
 

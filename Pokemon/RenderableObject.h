@@ -2,6 +2,7 @@
 
 #include "BaseEngine.h"
 #include "Texture.h"
+#include <tuple>
 #include <SDL.h>
 
 class RenderableObject
@@ -18,7 +19,7 @@ protected:
 	//texture
 	Texture*		m_texture		= nullptr;
 	//texture rect
-	SDL_Rect		m_textureRect	= SDL_Rect();
+	std::tuple<float, float, float, float>		m_textureRect = std::make_tuple(0.0f, 0.0f, 1.0f, 1.0f);
 
 	//visiable
 	bool m_visiable = true;
@@ -36,7 +37,7 @@ public:
 	void setLocation(int x, int y)					{ m_rect.x = x; m_rect.y = y; }
 	void setSize(int width, int height)				{ m_rect.h = height; m_rect.w = width; }
 	void setTexture(Texture* texture)				{ m_texture = texture; }
-	void setTexPos(int x1, int y1, int x2, int y2)	{ m_textureRect.x = x1; m_textureRect.y = y1; m_textureRect.h = y2 - y1; m_textureRect.w = x2 - x1; }
+	void setTexPos(float x1, float y1, float x2, float y2)	{ std::get<0>(m_textureRect) = x1; std::get<1>(m_textureRect) = y1; std::get<2>(m_textureRect) = y2 - y1; std::get<3>(m_textureRect) = x2 - x1; }
 
 	const int getX()		{ return m_rect.x; }
 	const int getY()		{ return m_rect.y; }

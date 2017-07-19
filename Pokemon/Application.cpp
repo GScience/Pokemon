@@ -36,9 +36,9 @@ void Application::run()
 	//main loop
 	while (sdlEvent.type != SDL_QUIT)
 	{
-		uint32_t nowTime = SDL_GetTicks();
-		m_nowScene->update((nowTime - lastCallTime) / 1000.0);
-		lastCallTime = nowTime;
+		m_nowTime = SDL_GetTicks();
+		m_nowScene->update((m_nowTime - lastCallTime) / 1000.0);
+		lastCallTime = m_nowTime;
 
 		while (SDL_PollEvent(&sdlEvent))
 		{

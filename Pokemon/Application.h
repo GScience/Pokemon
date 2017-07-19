@@ -31,6 +31,9 @@ private:
 	//now scene
 	std::shared_ptr<SceneBase> m_nowScene = nullptr;
 
+	//nowTime
+	uint32_t m_nowTime;
+
 	Application() {}
 
 	//run the program
@@ -50,6 +53,12 @@ public:
 	void switchScene(const char* sceneName)
 	{
 		m_nowScene = sceneMap.at(sceneName);
+	}
+
+	//get time
+	double getTime() const
+	{
+		return m_nowTime;
 	}
 
 	/*Event start*/

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+#include <memory>
 #include <SDL.h>
 #include <map>
 #include <string>
@@ -7,8 +9,8 @@
 class ResourceContent
 {
 private:
-	SDL_Renderer*					m_sdlRenderer;
-	std::map<std::string, void*>	m_resourceMap;
+	SDL_Renderer*	m_sdlRenderer;
+	std::map <std::string, std::unique_ptr<void, std::function<void(void*)>>>	m_resourceMap;
 
 	//load all resources
 	void loadResources(const char * dir);
@@ -18,15 +20,21 @@ public:
 	void initialize(SDL_Renderer* sdlRenderer, const char* path);
 
 	//add
-	void add(void* type, const char* resourcePath)
+	void add(const char* resourcePath, void* pointer)
 	{
-		m_resourceMap[resourcePath] = type;
+		m_resourceMap[resourcePath] = std::unique_ptr<void, std::function<void(void*)>>(pointer, [](void*) {});
+	}
+	template <class Type, class ...InitVar> void add(const char* resourcePath, InitVar... vars)
+	{
+		std::unique_ptr<Type> shader = std::make_unique<Type>(vars...);
+		m_resourceMap[resourcePath] = std::unique_ptr<void, std::function<void(void*)>>(shader.get(), [](void*) {});
+		shader.release();
 	}
 
 	//get resource
 	template <class Type> Type* get(const char* resourcePath)
 	{
-		return reinterpret_cast<Type*>(m_resourceMap.at(resourcePath));
+		return reinterpret_cast<Type*>(m_resourceMap.at(resourcePath).get());
 	}
 
 	//try to get resource
@@ -34,7 +42,7 @@ public:
 	{
 		try
 		{
-			return reinterpret_cast<Type*>(m_resourceMap.at(resourcePath));
+			return get<Type>(resourcePath);
 		}
 		catch (std::exception)
 		{

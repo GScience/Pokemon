@@ -24,8 +24,7 @@ public:
 					m_spiritComponents[x][y][zOrder] = m_spirit->addSpiritComponent(zOrder);
 					m_spiritComponents[x][y][zOrder]->setSize(MAX_WIDTH / 15, MAX_HEIGHT / 10);
 					m_spiritComponents[x][y][zOrder]->setLocation(x * MAX_WIDTH / 15, y * MAX_HEIGHT / 10);
-					m_spiritComponents[x][y][zOrder]->setTexture(application.getTexture("Resources\\MapRes\\GrassGround.tex"));
-					m_spiritComponents[x][y][zOrder]->setTexPos(0, 0, 32, 32);
+					m_spiritComponents[x][y][zOrder]->setTexture(application.getTexture("Resources\\MapRes\\Flower.tex"));
 				}
 	}
 };
