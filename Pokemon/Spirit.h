@@ -2,6 +2,7 @@
 
 #include "SpiritComponent.h"
 #include "RenderableObject.h"
+#include <memory>
 #include <SDL.h>
 #include <list>
 
@@ -13,7 +14,7 @@ class Spirit :public RenderableObject
 
 private:
 	//spirit component list
-	std::list<SpiritComponent> m_spiritComponentList;
+	std::list<std::shared_ptr<SpiritComponent>> m_spiritComponentList;
 
 	void update(double passedTime) override;
 	void draw()	override;
@@ -21,5 +22,9 @@ private:
 public:
 	Spirit(SceneBase* scene, SDL_Renderer* sdlRenderer) :RenderableObject(scene, sdlRenderer) {}
 
-	SpiritComponent* addSpiritComponent(unsigned short zOrder);
+	//add component object
+	std::shared_ptr<SpiritComponent> addSpiritComponent(unsigned short zOrder);
+
+	//remove spirit
+	void removeSpiritComponent(std::shared_ptr<SpiritComponent> spiritComponent) { spiritComponent->m_isRemoved = true; }
 };

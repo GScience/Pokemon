@@ -20,7 +20,8 @@ protected:
 	std::tuple<float, float, float, float>		m_textureRect = std::make_tuple(0.0f, 0.0f, 1.0f, 1.0f);
 
 	//visiable
-	bool m_visiable = true;
+	bool m_visiable		= true;
+	bool m_isRemoved	= false;
 
 	//order
 	unsigned short m_zOrder = 0;
@@ -33,6 +34,7 @@ protected:
 public:
 	bool isCoveredBy(const RenderableObject& sc) const { return m_zOrder < sc.m_zOrder; }
 	bool isVisiable() const { return m_visiable; }
+	bool isRemoved() const { return m_isRemoved; }
 
 	void setVisiable(bool canSee)					{ m_visiable = canSee; }
 	void setLocation(int x, int y)					{ m_rect.x = x; m_rect.y = y; }

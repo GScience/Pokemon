@@ -25,15 +25,13 @@ public:
 	//add
 	void add(const char* resourcePath, void* pointer)
 	{
-		m_resourceMap[resourcePath] = std::unique_ptr<void, std::function<void(void*)>>(pointer, [](void*) {});
+		m_resourceMap.emplace(resourcePath, std::unique_ptr<void, std::function<void(void*)>>(pointer, [](void*) {}));
 	}
 	template <class Type, class ...InitVar> Type* add(const char* resourcePath, InitVar... vars)
 	{
-		std::unique_ptr<Type> uniquePtr = std::make_unique<Type>(vars...);
-		Type* pointer = uniquePtr.get();
-		m_resourceMap[resourcePath] = std::unique_ptr<void, std::function<void(void*)>>(pointer, [](void*) {});
-		uniquePtr.release();
-		return pointer;
+		Type* ptr = new Type(vars...);
+		m_resourceMap.emplace(resourcePath, std::unique_ptr<void, std::function<void(void*)>>(ptr, [](void* ptr) { delete ptr; }));
+		return ptr;
 	}
 
 	//get resource(if res doesn't exist will be load)
@@ -52,14 +50,12 @@ public:
 	//get resource(if res doesn't exist will return nullptr
 	template <class Type> Type* tryGet(const char* resourcePath)
 	{
-		try
-		{
-			return reinterpret_cast<Type*>(m_resourceMap.at(resourcePath).get());
-		}
-		catch (std::exception)
-		{
+		auto res = m_resourceMap.find(resourcePath);
+
+		if (res == m_resourceMap.end())
 			return nullptr;
-		}
+		else
+			return reinterpret_cast<Type*>(res->second.get());
 	}
 
 	//get texture

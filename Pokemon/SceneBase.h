@@ -12,7 +12,7 @@ class SceneBase
 {
 	friend class Application;
 private:
-	std::list<Spirit>	m_spiritList;
+	std::list<std::shared_ptr<Spirit>>	m_spiritList;
 	std::list<std::shared_ptr<ActionBase>>	m_actionPool;
 
 protected:
@@ -21,10 +21,13 @@ protected:
 
 public:
 	//add spirit
-	Spirit* addSpirit(unsigned short zOrder);
+	std::shared_ptr<Spirit> addSpirit(unsigned short zOrder);
+
+	//remove spirit
+	void removeSpirit(std::shared_ptr<Spirit> spirit) { spirit->m_isRemoved = true; }
 
 	//add action
-	template <class Action> std::shared_ptr<ActionBase> addActionTo(RenderableObject* obj)
+	template <class Action> std::shared_ptr<ActionBase> addActionTo(std::shared_ptr<RenderableObject> obj)
 	{
 		auto action = std::make_shared<Action>(obj);
 		m_actionPool.emplace_back(action);

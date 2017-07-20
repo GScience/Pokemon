@@ -4,6 +4,7 @@
 #include <Array>
 #include <SDL.h>
 
+class Spirit;
 class SceneBase;
 class Texture;
 
@@ -13,15 +14,21 @@ private:
 	Texture* m_texture;
 
 public:
+	Texture* getTexture() const { return m_texture; }
+
 	Tile(const char* fileName);
 };
 
 class TileMap
 {
 private:
-	std::array<std::vector<Tile>, 150> tileArray;
+	std::vector<std::vector<Tile*>> m_tileMap;
+
+	//map size
+	unsigned int m_mapWidth;
+	unsigned int m_mapHeight;
 
 public:
 	TileMap(const char* fileName);
-	void bindToScene(SceneBase* scene);
+	std::shared_ptr<Spirit> bindToScene(SceneBase* scene);
 };

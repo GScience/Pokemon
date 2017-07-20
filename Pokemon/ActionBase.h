@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Event.h"
+#include <memory>
 #include <SDL.h>
 
 class RenderableObject;
@@ -8,10 +9,13 @@ class RenderableObject;
 class ActionBase
 {
 protected:
-	RenderableObject* m_obj;
+	std::shared_ptr<RenderableObject> m_obj;
 
 public:
-	ActionBase(RenderableObject* obj) :m_obj(obj) {}
+	ActionBase(std::shared_ptr<RenderableObject> obj) :m_obj(obj) {}
+
+	//get renderable object
+	std::shared_ptr<RenderableObject> getRenderableObject() { return m_obj; }
 
 	//update
 	virtual void update(double passedTime)	= 0;

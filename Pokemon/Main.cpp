@@ -14,45 +14,41 @@ class testScene : public SceneBase
 {
 	SceneCtor;
 
-	Spirit* testSpirit1 = addSpirit(0);
-	SpiritComponent* testSC1;
+	std::shared_ptr<Spirit> testSpirit1 = addSpirit(0);
+	std::shared_ptr<SpiritComponent> sp;
+	std::shared_ptr<Spirit> mapSpirit;
 
 public:
 	void test1()
 	{
 		if (testSpirit1->getX() == 0)
-			addActionTo<Action::Move<362, MAX_WIDTH - 256, MAX_HEIGHT - 256>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
+			addActionTo<Action::MoveTo<362, MAX_WIDTH - 256, MAX_HEIGHT - 256>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
 		else
-			addActionTo<Action::Move<362, 0, 0>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
+			addActionTo<Action::MoveTo<362, 0, 0>>(testSpirit1)->onFinish += std::function<void()>([this]() { test1(); });
 	}
 	void test2()
 	{
-		if (testSC1->getY() == -50)
-			addActionTo<Action::Move<50, 0, 50>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
+		if (sp->getY() == 0)
+			addActionTo<Action::MoveTo<30, 0, 5>>(sp)->onFinish += std::function<void()>([this]() { test2(); });
 		else
-			addActionTo<Action::Move<50, 0, -50>>(testSC1)->onFinish += std::function<void()>([this]() { test2(); });
-
-		testSC1->setVisiable(!testSC1->isVisiable());
+			addActionTo<Action::MoveTo<30, 0, 0>>(sp)->onFinish += std::function<void()>([this]() { test2(); });
 	}
 	void initialize() override
 	{
-		SpiritComponent* sp = testSpirit1->addSpiritComponent(0);
+		sp = testSpirit1->addSpiritComponent(0);
 		sp->setTexture(application.getResourceContent().getTexture("Resources\\PokemonIcon\\1.tex"));
 		sp->setTexPos(0, 0, 1, 1);
 		sp->setLocation(0, 0);
-		sp->setSize(MAX_WIDTH, MAX_HEIGHT);
+		sp->setSize(128, 128);
 
-		testSpirit1->setLocation(0, 0);
-		testSpirit1->setSize(256, 256);
 		test1();
-
-		testSC1 = testSpirit1->addSpiritComponent(1);
-		testSC1->setTexture(application.getResourceContent().getTexture("Resources\\PokemonIcon\\1.tex"));
-		testSC1->setTexPos(0, 0, 1, 1);
-		testSC1->setLocation(32, 32);
-		testSC1->setSize(MAX_WIDTH, MAX_HEIGHT);
-
 		test2();
+
+		mapSpirit = application.getResourceContent().get<TileMap>("Resources\\MapRes\\test.tm")->bindToScene(this);
+		addActionTo<Action::MoveTo<128, 0, -480>>(mapSpirit)->onFinish += std::function<void()>([&]
+		{
+			addActionTo<Action::MoveTo<128, -256, -480>>(mapSpirit);
+		});
 	}
 	int zOrder = 0;
 	double totalTime = 0;
@@ -63,13 +59,8 @@ public:
 		
 		totalTime += time;
 
-		if (totalTime < 1)
-			return;
-
-		totalTime = 0;
-
-		if (zOrder == 256)
-			zOrder = 0;
+		if (totalTime >= 10)
+			removeSpirit(testSpirit1);
 
 		/*Spirit* testSpirit = addSpirit(zOrder);
 

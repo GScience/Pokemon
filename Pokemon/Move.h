@@ -5,7 +5,7 @@
 
 namespace Action
 {
-	template <int speed, int toX, int toY> class Move :public ActionBase
+	template <int speed, int toX, int toY> class MoveTo :public ActionBase
 	{
 		//location in float
 		float m_x;
@@ -15,7 +15,7 @@ namespace Action
 		int m_changedY;
 
 	public:
-		Move(RenderableObject* obj) :ActionBase(obj)
+		MoveTo(std::shared_ptr<RenderableObject> obj) :ActionBase(obj)
 		{
 			m_x = (float)m_obj->getX();
 			m_y = (float)m_obj->getY();
