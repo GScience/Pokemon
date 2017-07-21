@@ -3,7 +3,7 @@
 #include "RenderableObject.h"
 #include <SDL.h>
 
-class SpiritComponent :public RenderableObject
+class SpiritComponent final :public RenderableObject
 {
 	friend class Spirit;
 

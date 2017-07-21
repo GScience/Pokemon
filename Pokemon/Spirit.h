@@ -8,7 +8,7 @@
 
 class SceneBase;
 
-class Spirit :public RenderableObject
+class Spirit final :public RenderableObject
 {
 	friend class SceneBase;
 

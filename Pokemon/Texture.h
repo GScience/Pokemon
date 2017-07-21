@@ -5,7 +5,7 @@
 #include <tuple>
 #include <vector>
 
-class Texture
+class Texture final
 {
 private:
 	//texture ID

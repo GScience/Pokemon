@@ -47,6 +47,8 @@ void SceneBase::update(double passedTime)
 	for (auto action : removedActionPool)
 		action->onFinish();
 	
+	removedActionPool.clear();
+
 	//update action and draw
 	for (auto spirit = m_spiritList.begin(); spirit != m_spiritList.end();)
 	{

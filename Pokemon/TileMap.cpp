@@ -63,7 +63,7 @@ TileMap::TileMap(const char* fileName)
 	}
 }
 
-std::shared_ptr<Spirit> TileMap::bindToScene(SceneBase* scene)
+std::shared_ptr<Spirit> TileMap::bindToScene(std::shared_ptr<SceneBase> scene)
 {
 	std::shared_ptr<Spirit> mapSpirit = scene->addSpirit(0);
 

@@ -11,6 +11,7 @@ class Spirit;
 class SceneBase
 {
 	friend class Application;
+
 private:
 	std::list<std::shared_ptr<Spirit>>	m_spiritList;
 	std::list<std::shared_ptr<ActionBase>>	m_actionPool;

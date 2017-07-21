@@ -26,6 +26,9 @@
     <ClCompile Include="ControllerBase.cpp">
       <Filter>BaseEngine</Filter>
     </ClCompile>
+    <ClCompile Include="ThirdPersonController.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BaseEngine">
@@ -79,6 +82,9 @@
       <Filter>BaseEngine</Filter>
     </ClInclude>
     <ClInclude Include="ControllerBase.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdPersionController.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
   </ItemGroup>

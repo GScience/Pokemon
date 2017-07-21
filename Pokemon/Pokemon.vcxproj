@@ -179,6 +179,7 @@
     <ClCompile Include="Spirit.cpp" />
     <ClCompile Include="SpiritComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="ThirdPersonController.cpp" />
     <ClCompile Include="TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +189,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="BaseEngine.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="ThirdPersionController.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="Move.h" />
     <ClInclude Include="RenderableObject.h" />

@@ -12,6 +12,7 @@ enum KeyAction { keyDown, keyUp };
 
 class Texture;
 class SceneBase;
+class ControllerBase;
 
 class Application
 {
@@ -31,6 +32,9 @@ private:
 
 	//now scene
 	std::shared_ptr<SceneBase> m_nowScene = nullptr;
+
+	//controller
+	std::shared_ptr<ControllerBase> m_controller;
 
 	//nowTime
 	uint32_t m_nowTime;
@@ -52,7 +56,11 @@ public:
 	ResourceContent& getResourceContent() { return m_resContent; }
 
 	//change scene
-	void switchScene(const char* sceneName) { m_nowScene = sceneMap.at(sceneName); }
+	void switchScene(const char* sceneName) 
+	{
+		m_nowScene		= sceneMap.at(sceneName); 
+		m_controller	= nullptr; 
+	}
 
 	//get time
 	uint32_t getTime() const { return m_nowTime; }
@@ -69,6 +77,12 @@ public:
 
 	//start the program
 	void start();
+
+	//bind controller
+	template <class Controller> void bindController()
+	{
+		m_controller = std::make_shared<Controller>(m_nowScene);
+	}
 
 	//add scene
 	template <class Scene> void addScene(const char* sceneName)

@@ -39,4 +39,39 @@ namespace Action
 			return (toX - (int)m_x) * m_changedX <= 0 && (toY - (int)m_y) * m_changedY <= 0;
 		}
 	};
+
+	template <int speed, int xChanged, int yChanged> class Move :public ActionBase
+	{
+		//location in float
+		float m_x;
+		float m_y;
+
+		int oldX;
+		int oldY;
+
+	public:
+		Move(std::shared_ptr<RenderableObject> obj) :ActionBase(obj)
+		{
+			oldX = m_obj->getX();
+			oldY = m_obj->getY();
+
+			m_x = (float)oldX;
+			m_y = (float)oldY;
+		}
+
+		void update(double passedTime) override
+		{
+			m_x += (float)((speed * xChanged / sqrt(xChanged * xChanged + yChanged * yChanged)) * passedTime);
+			m_y += (float)((speed * yChanged / sqrt(xChanged * xChanged + yChanged * yChanged)) * passedTime);
+
+			if (hasFinished())
+				m_obj->setLocation((int)oldX + xChanged, (int)oldY + yChanged);
+			else
+				m_obj->setLocation((int)m_x, (int)m_y);
+		}
+		bool hasFinished() const override
+		{
+			return abs(oldX - m_x) >= abs(xChanged) && abs(oldY - m_y) >= abs(yChanged);
+		}
+	};
 }

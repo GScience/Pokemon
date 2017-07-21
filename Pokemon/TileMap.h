@@ -30,5 +30,5 @@ private:
 
 public:
 	TileMap(const char* fileName);
-	std::shared_ptr<Spirit> bindToScene(SceneBase* scene);
+	std::shared_ptr<Spirit> bindToScene(std::shared_ptr<SceneBase> scene);
 };
