@@ -1,36 +1,38 @@
 #pragma once
 
 #include <functional>
-#include <vector>
+#include <list>
 
 template <typename  ...Args> class Event
 {
 private:
 	//handlers
-	std::vector<std::function<void(Args...)>> m_functions;
+	std::list<std::function<void(Args...)>> m_functions;
 
 public:
+	using Function = typename std::list<std::function<void(Args...)>>::iterator;
+
 	Event() {}
 
 	//add handler
-	void* operator += (std::function<void(Args...)>&& newFunc)
+	Function operator += (std::function<void(Args...)>&& newFunc)
 	{
 		m_functions.emplace_back(newFunc);
-		return &m_functions[m_functions.size() - 1];
+		return --m_functions.end();
 	}
 	//add handler
-	void* operator += (void(*newFunc)(Args...))
+	Function operator += (void(*newFunc)(Args...))
 	{
 		m_functions.emplace_back(newFunc);
-		return &m_functions[m_functions.size() - 1];
+		return --m_functions.end();
 	}
 	//remove handler
-	void operator -= (void* func)
+	void operator -= (Function func)
 	{
-		for (unsigned int i = 0; i < m_functions.size(); i++)
-			if (func == &m_functions[i])
+		for (Function function = m_functions.begin(); function != m_functions.end(); function++)
+			if (func == function)
 			{
-				m_functions.erase(m_functions.begin() + i);
+				m_functions.erase(function);
 				break;
 			}
 	}

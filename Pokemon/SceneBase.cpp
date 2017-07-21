@@ -1,6 +1,7 @@
 
 #include "SceneBase.h"
 #include "Spirit.h"
+#include <vector>
 #include <algorithm>
 #include <SDL.h>
 

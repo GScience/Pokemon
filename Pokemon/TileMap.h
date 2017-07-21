@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Application.h"
-#include <Array>
+#include <Vector>
 #include <SDL.h>
 
 class Spirit;
