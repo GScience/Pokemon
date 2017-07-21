@@ -23,6 +23,9 @@
     <ClCompile Include="TileMap.cpp">
       <Filter>BaseEngine</Filter>
     </ClCompile>
+    <ClCompile Include="ControllerBase.cpp">
+      <Filter>BaseEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="BaseEngine">
@@ -73,6 +76,9 @@
       <Filter>BaseEngine</Filter>
     </ClInclude>
     <ClInclude Include="TileMap.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerBase.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
   </ItemGroup>

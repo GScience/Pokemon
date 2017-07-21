@@ -3,13 +3,29 @@
 #include "SceneBase.h"
 #include "Move.h"
 #include "TileMap.h"
+#include "ControllerBase.h"
 #include "Spirit.h"
+#include <iostream>
 #include <string>
 
 using namespace std;
 
 int id = 0;
 
+class testController : public ControllerBase
+{
+public:
+	int j = 0;
+
+	testController(int i)
+	{
+		j = i;
+	}
+	void onKey(int key, KeyAction action) override
+	{
+		std::cout << j << ":" << key << endl;
+	}
+};
 class testScene : public SceneBase
 {
 	SceneCtor;
@@ -17,6 +33,9 @@ class testScene : public SceneBase
 	std::shared_ptr<Spirit> testSpirit1 = addSpirit(0);
 	std::shared_ptr<SpiritComponent> sp;
 	std::shared_ptr<Spirit> mapSpirit;
+
+	testController testc1 = testController(1);
+	testController testc2 = testController(2);
 
 public:
 	void test1()
@@ -53,14 +72,25 @@ public:
 	int zOrder = 0;
 	double totalTime = 0;
 
+	bool tc1 = true;
+	bool tc2 = true;
 	void update(double time) override
 	{
 		SceneBase::update(time);
 		
 		totalTime += time;
 
-		if (totalTime >= 10)
+		if (totalTime >= 10 && tc1)
+		{
+			tc1 = false;
 			removeSpirit(testSpirit1);
+			testc1.~testController();
+		}
+		else if (totalTime > 5 && tc2)
+		{
+			tc2 = false;
+			testc2.~testController();
+		}
 
 		/*Spirit* testSpirit = addSpirit(zOrder);
 

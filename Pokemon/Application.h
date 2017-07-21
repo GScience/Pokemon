@@ -8,7 +8,7 @@
 #include <map>
 #include <functional>
 
-enum keyAction { keyDown, keyUp };
+enum KeyAction { keyDown, keyUp };
 
 class Texture;
 class SceneBase;
@@ -60,7 +60,7 @@ public:
 	/*Event start*/
 
 	//keyboard event(key,action)
-	Event<int, keyAction> keyEvent;
+	Event<int, KeyAction> keyEvent;
 
 	//init event(call when application init)
 	Event<> initEvent;
