@@ -6,15 +6,20 @@
 class Spirit;
 class ActionBase;
 
+enum Ditection
+{
+	Up, Down, Left, Right, Null
+};
 //auto load map
 class ThirdPersionController :public ControllerBase
 {
 private:
-	std::vector<std::shared_ptr<Spirit>> m_tileMapList;
-	std::shared_ptr<ActionBase> m_action;
+	std::vector<std::pair<std::shared_ptr<Spirit>, std::shared_ptr<ActionBase>>> m_tileMapList;
+
+	Ditection m_ditection = Null;
 
 public:
 	ThirdPersionController(std::shared_ptr<SceneBase>);
 
-	void onKey(int keyCode, KeyAction action);
+	void onTick(double tick) override;
 };

@@ -188,6 +188,7 @@
     <ClInclude Include="ControllerBase.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="BaseEngine.h" />
+    <ClInclude Include="GameModeBase.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="ThirdPersionController.h" />
     <ClInclude Include="TileMap.h" />

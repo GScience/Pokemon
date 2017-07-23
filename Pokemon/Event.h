@@ -29,6 +29,9 @@ public:
 	//remove handler
 	void operator -= (Function func)
 	{
+		if (m_functions.size() == 0)
+			return;
+
 		for (Function function = m_functions.begin(); function != m_functions.end(); function++)
 			if (func == function)
 			{

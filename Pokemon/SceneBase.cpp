@@ -29,6 +29,8 @@ void SceneBase::update(double passedTime)
 	//update action
 	for (auto& action = m_actionPool.begin(); action != m_actionPool.end(); )
 	{
+		(*action)->update(passedTime);
+
 		if ((*action)->hasFinished())
 		{
 			removedActionPool.push_back(*action);
@@ -37,10 +39,7 @@ void SceneBase::update(double passedTime)
 		else if ((*action)->getRenderableObject()->isRemoved())
 			action = m_actionPool.erase(action);
 		else
-		{
-			(*action)->update(passedTime);
 			action++;
-		}
 	}
 
 	//call finish function

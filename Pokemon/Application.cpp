@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "BaseEngine.h"
 #include "SceneBase.h"
+#include <iostream>
 
 void Application::run()
 {
@@ -27,8 +28,6 @@ void Application::run()
 
 	while (m_nowScene == nullptr);
 
-	m_nowScene->initialize();
-	
 	//listen event
 	SDL_Event sdlEvent = SDL_Event();
 
@@ -39,6 +38,7 @@ void Application::run()
 	{
 		m_nowTime = SDL_GetTicks();
 		m_nowScene->update((m_nowTime - lastCallTime) / 1000.0);
+		tickEvent((m_nowTime - lastCallTime) / 1000.0);
 		lastCallTime = m_nowTime;
 
 		while (SDL_PollEvent(&sdlEvent))

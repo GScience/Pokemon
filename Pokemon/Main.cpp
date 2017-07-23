@@ -5,6 +5,7 @@
 #include "TileMap.h"
 #include "ControllerBase.h"
 #include "Spirit.h"
+#include "GameModeBase.h"
 #include "ThirdPersionController.h"
 #include <iostream>
 #include <string>
@@ -13,13 +14,53 @@ using namespace std;
 
 int id = 0;
 
+class testGameMode :public GameModeBase
+{
+public:
+	testGameMode(std::shared_ptr<SceneBase> scene) :GameModeBase(scene)
+	{
+		bindController<ThirdPersionController>();
+		findController<ThirdPersionController>()->setEnable(true);
+	}
+};
+
+class testScene2 : public SceneBase
+{
+	SceneCtor;
+
+	std::shared_ptr<Spirit> testSpirit1 = addSpirit(0);
+	std::shared_ptr<SpiritComponent> sp;
+
+public:
+	void initialize() override
+	{
+		sp = testSpirit1->addSpiritComponent(0);
+		sp->setTexture(application.getResourceContent().getTexture("Resources\\PokemonIcon\\1.tex"));
+		sp->setTexPos(0, 0, 1, 1);
+		sp->setLocation(32, 0);
+		sp->setSize(128, 128);
+
+		application.setGameMode<testGameMode>();
+	}
+	double totalTime = 0;
+
+	void update(double time) override
+	{
+		SceneBase::update(time);
+
+		totalTime += time;
+
+		if (totalTime >= 5)
+			application.switchScene("testScene");
+	}
+};
+
 class testScene : public SceneBase
 {
 	SceneCtor;
 
 	std::shared_ptr<Spirit> testSpirit1 = addSpirit(0);
 	std::shared_ptr<SpiritComponent> sp;
-	std::shared_ptr<Spirit> mapSpirit;
 
 public:
 	void test1()
@@ -48,7 +89,7 @@ public:
 		//test2();
 
 		//mapSpirit = application.getResourceContent().get<TileMap>("Resources\\MapRes\\test.tm")->bindToScene(this);
-		application.bindController<ThirdPersionController>();
+		application.setGameMode<testGameMode>();
 		/*
 		addActionTo<Action::MoveTo<128, 0, -480>>(mapSpirit)->onFinish += std::function<void()>([&]
 		{
@@ -84,6 +125,8 @@ int main(int argc, char* args[])
 	application.initEvent += (std::function<void()>)[]
 	{
 		application.addScene<testScene>("testScene");
+		application.addScene<testScene2>("testScene2");
+		application.switchScene("testScene");
 	};
 	application.start();
 

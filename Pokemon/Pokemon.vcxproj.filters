@@ -87,6 +87,9 @@
     <ClInclude Include="ThirdPersionController.h">
       <Filter>BaseEngine</Filter>
     </ClInclude>
+    <ClInclude Include="GameModeBase.h">
+      <Filter>BaseEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resources\ICON.ico">
